@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project>
+
+  <Import Project="..\Directory.Build.props" />
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0;netstandard2.1;net6.0;</TargetFrameworks>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <BuildDirectory>$(BuildToolsDirectory)Sharemee.DevelopKit\</BuildDirectory>
+    <VersionPrefix>0.6.0</VersionPrefix>
+    <VersionSuffix>alpha</VersionSuffix>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <BaseOutputPath>$(BuildDirectory)$(ProjectFullName)</BaseOutputPath>
+    <AssemblyName>$(ProjectFullName)</AssemblyName>
+    <RootNamespace>$(ProjectFullName)</RootNamespace>
+  </PropertyGroup>
+
+</Project>

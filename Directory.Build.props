@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project>
+
+  <PropertyGroup>
+    <Authors>Sharemee</Authors>
+    <!--<TargetFrameworks>net6.0;</TargetFrameworks>-->
+    <LangVersion>latest</LangVersion>
+
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+  </PropertyGroup>
+
+
+  <!-- From Community Toolkit -->
+  <PropertyGroup>
+    <RepositoryDirectory>$(MSBuildThisFileDirectory)</RepositoryDirectory>
+    <BuildToolsDirectory>$(RepositoryDirectory)build\</BuildToolsDirectory>
+  </PropertyGroup>
+
+  <!-- Custom properties -->
+  <PropertyGroup>
+    <!-- 工程前缀名称 -->
+    <ProjectPrefix>$(Authors).</ProjectPrefix>
+    <!-- 工程名称 -->
+    <ProjectName>$(MSBuildProjectName.Replace(" ", "_"))</ProjectName>
+    <!-- 工程全称 -->
+    <ProjectFullName>$(ProjectPrefix)$(ProjectName)</ProjectFullName>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <AssemblyName>$(ProjectPrefix)$(ProjectName)</AssemblyName>
+    <RootNamespace>$(ProjectPrefix)$(ProjectName)</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="$(RepositoryDirectory)LICENSE" Pack="true" PackagePath="" />
+  </ItemGroup>
+</Project>
