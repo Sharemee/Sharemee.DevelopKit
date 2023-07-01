@@ -3,7 +3,6 @@
 
   <PropertyGroup>
     <Authors>Sharemee</Authors>
-    <!--<TargetFrameworks>net6.0;</TargetFrameworks>-->
     <LangVersion>latest</LangVersion>
 
     <PackageReadmeFile>README.md</PackageReadmeFile>
