@@ -21,11 +21,7 @@ public class Md5
         using MD5 md5 = MD5.Create();
         byte[] hash = md5.ComputeHash(content);
         var sb = new StringBuilder(32);
-        string fmt = "{0:X2}";
-        if (lowercase)
-        {
-            fmt = "{0:x2}";
-        }
+        string fmt = lowercase ? "{0:x2}" : "{0:X2}";
         foreach (byte b in hash)
         {
             sb.AppendFormat(fmt, b);
