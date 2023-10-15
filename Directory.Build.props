@@ -4,13 +4,13 @@
   <PropertyGroup>
     <Authors>Sharemee</Authors>
     <LangVersion>latest</LangVersion>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
 
-    <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageReadmeFile Condition="Exists('README.md')">README.md</PackageReadmeFile>
+    <PackageLicenseFile Condition="Exists('LICENSE')">LICENSE</PackageLicenseFile>
   </PropertyGroup>
 
-
-  <!-- From Community Toolkit -->
   <PropertyGroup>
     <RepositoryDirectory>$(MSBuildThisFileDirectory)</RepositoryDirectory>
     <BuildToolsDirectory>$(RepositoryDirectory)build\</BuildToolsDirectory>
@@ -32,6 +32,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="$(RepositoryDirectory)LICENSE" Pack="true" PackagePath="" />
+    <None Condition="Exists('README.md')" Include="README.md" Pack="true" PackagePath="" />
+    <None Condition="Exists('LICENSE')" Include="$(RepositoryDirectory)LICENSE" Pack="true" PackagePath="" />
   </ItemGroup>
 </Project>

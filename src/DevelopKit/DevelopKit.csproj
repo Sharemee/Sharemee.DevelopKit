@@ -4,6 +4,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <VersionPrefix>0.6.2</VersionPrefix>
+    <Platform>windows</Platform>
   </PropertyGroup>
 
   <ItemGroup>

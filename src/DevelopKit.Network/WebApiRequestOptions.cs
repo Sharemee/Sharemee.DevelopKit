@@ -9,19 +9,23 @@ public class WebApiRequestOptions
 
     public string AppId { get; set; } = string.Empty;
     public string AppSecret { get; set; } = string.Empty;
+
     /// <summary>
     /// 域名
     /// </summary>
     public string Domain { get; set; } = null!;
+
     /// <summary>
     /// 超时时间
     /// </summary>
     /// <remarks>默认30秒</remarks>
     public int? Timeout { get; set; }
+
     /// <summary>
     /// 接口列表
     /// </summary>
     public Dictionary<string, ApiEndpoint> Endpoints { get; set; } = new Dictionary<string, ApiEndpoint>();
+
     /// <summary>
     /// 静态请求头
     /// </summary>
