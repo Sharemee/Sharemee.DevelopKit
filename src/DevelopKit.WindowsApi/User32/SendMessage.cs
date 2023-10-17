@@ -1,6 +1,4 @@
-﻿using System.Runtime.InteropServices;
-
-namespace Sharemee.DevelopKit.WindowsApi;
+﻿namespace Sharemee.DevelopKit.WindowsApi;
 
 public partial class User32
 {
@@ -25,6 +23,7 @@ public partial class User32
     /// 如果指定的窗口是由调用线程创建的，则窗口过程将立即作为子例程调用。 如果指定的窗口是由其他线程创建的，则系统会切换到该线程并调用相应的窗口过程。 仅当接收线程执行消息检索代码时，才会处理线程之间发送的消息。 在接收线程处理消息之前，将阻止发送线程。 但是，发送线程将在等待处理其消息时处理传入的非排队消息。 若要防止出现这种情况，请使用具有SMTO_BLOCK集的 SendMessageTimeout 。 有关非排队消息的详细信息，请参阅 非排队消息。
     /// 辅助功能应用程序可以使用 SendMessage 将 WM_APPCOMMAND 消息发送到 shell 以启动应用程序。 不保证此功能适用于其他类型的应用程序。
     /// </remarks>
-    [DllImport(LibraryName, EntryPoint = "SendMessage", CharSet = CharSet.Auto)]
+    [DescriptionUri("https://learn.microsoft.com/zh-cn/windows/win32/api/winuser/nf-winuser-sendmessage")]
+    [DllImport(LibraryName, EntryPoint = "SendMessage", ExactSpelling = true, CharSet = CharSet.Auto)]
     public static extern IntPtr SendMessage(IntPtr hWnd, uint Msg, IntPtr wParam, IntPtr lParam);
 }

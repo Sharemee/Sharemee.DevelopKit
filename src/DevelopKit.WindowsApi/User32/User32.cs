@@ -1,10 +1,8 @@
-﻿using System.Runtime.InteropServices;
-
-namespace Sharemee.DevelopKit.WindowsApi;
+﻿namespace Sharemee.DevelopKit.WindowsApi;
 
 public partial class User32
 {
-    internal const string LibraryName = "user32.dll";
+    internal const string LibraryName = "User32.dll";
 
     /// <summary>
     /// 将创建指定窗口的线程引入前台并激活窗口。
