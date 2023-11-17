@@ -11,13 +11,13 @@ public class Noncestr
         var rd = new Random();
         for (int i = 0; i < length; i++)
         {
-#if NETSTANDARD2_1_OR_GREATER
-            sb.Append(Symbol.AsSpan(rd.Next(0, Symbol.Length), 1));
-#else
             int randomValue = rd.Next(0, Symbol.Length);
+#if NETSTANDARD2_0
+            var value = Symbol.Substring(randomValue, 1);
+#else
             var value = Symbol.AsSpan(randomValue, 1);
-            sb.Append(value[0]);
 #endif
+            sb.Append(value[0]);
         }
         return sb.ToString();
     }

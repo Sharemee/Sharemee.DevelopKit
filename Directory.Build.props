@@ -6,14 +6,11 @@
     <LangVersion>latest</LangVersion>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-
-    <PackageReadmeFile Condition="Exists('README.md')">README.md</PackageReadmeFile>
-    <PackageLicenseFile Condition="Exists('LICENSE')">LICENSE</PackageLicenseFile>
   </PropertyGroup>
 
   <PropertyGroup>
     <RepositoryDirectory>$(MSBuildThisFileDirectory)</RepositoryDirectory>
-    <BuildToolsDirectory>$(RepositoryDirectory)build\</BuildToolsDirectory>
+    <BuildDirectory>$(RepositoryDirectory)build\</BuildDirectory>
   </PropertyGroup>
 
   <!-- Custom properties -->
@@ -31,8 +28,21 @@
     <RootNamespace>$(ProjectPrefix)$(ProjectName)</RootNamespace>
   </PropertyGroup>
 
+  <!-- Package Configuration -->
+  <PropertyGroup>
+    <PackageReadmeFile Condition="Exists('README.md')">README.md</PackageReadmeFile>
+    <PackageLicenseFile Condition="Exists('LICENSE')">LICENSE</PackageLicenseFile>
+    <PackageOutputPath>$(RepositoryDirectory)build\$(ProjectFullName)</PackageOutputPath>
+    <RepositoryUrl>https://github.com/Sharemee/Sharemee.DevelopKit.git</RepositoryUrl>
+  </PropertyGroup>
+
   <ItemGroup>
     <None Condition="Exists('README.md')" Include="README.md" Pack="true" PackagePath="" />
     <None Condition="Exists('LICENSE')" Include="$(RepositoryDirectory)LICENSE" Pack="true" PackagePath="" />
   </ItemGroup>
+
+  <!-- Test property value -->
+  <Target Name="Test" Condition="$(Configuration)=='Debug'" BeforeTargets="Build">
+    <WriteLinesToFile File="$(BuildDirectory)$(AssemblyName)\build.log" Lines="$([System.DateTime]::Now) [$(Configuration)] $(RepositoryUrl)" />
+  </Target>
 </Project>

@@ -20,34 +20,33 @@ namespace Sharemee.DevelopKit.WindowsApi
         /// 
         /// </remarks>
         [DllImport("kernel32.dll", SetLastError = true)]
-        [SupportedOSPlatform("windows")]
+        //[SupportedOSPlatform("windows")]
         private static extern IntPtr GetStdHandle(int nStdHandle);
 
         [DllImport("kernel32.dll", SetLastError = true)]
-        [SupportedOSPlatform("windows")]
+        //[SupportedOSPlatform("windows")]
         private static extern bool GetConsoleMode(IntPtr hConsoleHandle, out uint lpMode);
 
         [DllImport("kernel32.dll", SetLastError = true)]
-        [SupportedOSPlatform("windows")]
+        //[SupportedOSPlatform("windows")]
         private static extern bool SetConsoleMode(IntPtr hConsoleHandle, uint dwMode);
 
         /// <summary>
         /// 禁用控制台快速编辑模式
         /// </summary>
         /// <returns></returns>
-        public static bool DisableQuickEdit()
-        {
-            if (OperatingSystem.IsWindows())
-            {
-                var hwnd = GetStdHandle(STD_INPUT_HANDLE);
-                if (GetConsoleMode(hwnd, out uint mode))
-                {
-                    mode &= ~ENABLE_QUICK_EDIT;
-                    return SetConsoleMode(hwnd, mode);
-                }
-            }
-
-            return false;
-        }
+        //public static bool DisableQuickEdit()
+        //{
+        //    if (OperatingSystem.IsWindows())
+        //    {
+        //        var hwnd = GetStdHandle(STD_INPUT_HANDLE);
+        //        if (GetConsoleMode(hwnd, out uint mode))
+        //        {
+        //            mode &= ~ENABLE_QUICK_EDIT;
+        //            return SetConsoleMode(hwnd, mode);
+        //        }
+        //    }
+        //    return false;
+        //}
     }
 }

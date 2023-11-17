@@ -1,13 +1,18 @@
-﻿namespace SourceGeneratorApp
-{
-    internal partial class Program
-    {
-        static void Main(string[] args)
-        {
-            HelloFrom("Generated Code");
-            Console.WriteLine("Hello world!");
-        }
+﻿using Windows.Win32;
 
-        static partial void HelloFrom(string name);
+namespace SourceGeneratorApp;
+
+internal partial class Program
+{
+    static void Main(string[] args)
+    {
+        HelloFrom("Generated Code");
+
+        //PInvoke.SetLayeredWindowAttributes
+        //PInvoke.Get
+
+        Console.WriteLine("Hello world!");
     }
+
+    static partial void HelloFrom(string name);
 }

@@ -1,10 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
+    <TargetFrameworks>netstandard2.0;netstandard2.1;net6.0;</TargetFrameworks>
     <VersionPrefix>0.6.2</VersionPrefix>
-    <Platform>windows</Platform>
+    <VersionSuffix>alpha</VersionSuffix>
   </PropertyGroup>
 
   <ItemGroup>
@@ -15,7 +14,7 @@
     <Folder Include="Encrypt\RsaUtil\" />
     <Folder Include="Network\" />
   </ItemGroup>
-  
+
   <ItemGroup>
     <Compile Include="..\DevelopKit.Encrypt\Md5.cs" Link="Encrypt\Md5.cs" />
     <Compile Include="..\DevelopKit.Encrypt\Noncestr.cs" Link="Encrypt\Noncestr.cs" />
@@ -27,7 +26,7 @@
     <Compile Include="..\DevelopKit.Network\WebApiRequestConverter.cs" Link="Network\WebApiRequestConverter.cs" />
     <Compile Include="..\DevelopKit.Network\WebApiRequestOptions.cs" Link="Network\WebApiRequestOptions.cs" />
   </ItemGroup>
-  
+
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Http" Version="7.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
@@ -37,5 +36,5 @@
   <ItemGroup>
     <None Include="README.md" Pack="true" PackagePath="\" />
   </ItemGroup>
-  
+
 </Project>

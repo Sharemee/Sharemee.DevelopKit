@@ -10,6 +10,6 @@ public partial class User32
     /// <param name="dwNewLong"></param>
     /// <returns>如果函数成功，则返回值为指定偏移量的上一个值，否则返回零。</returns>
     [DescriptionUri("https://learn.microsoft.com/zh-cn/windows/win32/api/winuser/nf-winuser-setwindowlongptrw")]
-    [DllImport(LibraryName, EntryPoint = "SetWindowLongPtr", ExactSpelling = true, CharSet = CharSet.Auto)]
+    [DllImport(LibraryName, ExactSpelling = true, CharSet = CharSet.Auto)]
     public static extern IntPtr SetWindowLongPtr(IntPtr hWnd, int nIndex, IntPtr dwNewLong);
 }
