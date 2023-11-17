@@ -1,5 +1,0 @@
-SetLayeredWindowAttributes
-
-GetWindowLongPtrA
-
-SetWindowLongPtr
