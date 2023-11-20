@@ -36,13 +36,38 @@
     <RepositoryUrl>https://github.com/Sharemee/Sharemee.DevelopKit.git</RepositoryUrl>
   </PropertyGroup>
 
-  <ItemGroup>
-    <None Condition="Exists('README.md')" Include="README.md" Pack="true" PackagePath="" />
-    <None Condition="Exists('LICENSE')" Include="$(RepositoryDirectory)LICENSE" Pack="true" PackagePath="" />
-  </ItemGroup>
+  <!-- Config README.md file source -->
+  <Choose>
+    <When Condition="Exists('README.md')">
+      <ItemGroup>
+        <None Include="README.md" Pack="true" PackagePath="" />
+      </ItemGroup>
+    </When>
+    <Otherwise>
+      <ItemGroup>
+        <None Condition="Exists('$(RepositoryDirectory)README.md')" Include="$(RepositoryDirectory)README.md" Pack="true" PackagePath="" />
+      </ItemGroup>
+    </Otherwise>
+  </Choose>
+
+  <!-- Config LICENSE file source -->
+  <Choose>
+    <When Condition="Exists('LICENSE')">
+      <ItemGroup>
+        <None Include="LICENSE" Pack="true" PackagePath="" />
+      </ItemGroup>
+    </When>
+    <Otherwise>
+      <ItemGroup>
+        <None Condition="Exists('$(RepositoryDirectory)LICENSE')" Include="$(RepositoryDirectory)LICENSE" Pack="true" PackagePath="" />
+      </ItemGroup>
+    </Otherwise>
+  </Choose>
 
   <!-- Test property value -->
   <Target Name="Test" Condition="$(Configuration)=='Debug'" BeforeTargets="Build">
     <WriteLinesToFile File="$(BuildDirectory)$(AssemblyName)\build.log" Lines="$([System.DateTime]::Now) [$(Configuration)] $(RepositoryUrl)" />
+    <WriteLinesToFile File="$(BuildDirectory)$(AssemblyName)\build.log" Lines="$([System.DateTime]::Now) [$(Configuration)] $(RepositoryDirectory)" />
+    <WriteLinesToFile File="$(BuildDirectory)$(AssemblyName)\build.log" Lines="$([System.DateTime]::Now) [$(Configuration)] $(Exists('LICENSE'))" />
   </Target>
 </Project>
