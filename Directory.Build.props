@@ -6,6 +6,14 @@
     <LangVersion>latest</LangVersion>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <!-- 程序集版本 -->
+    <AssemblyVersion>$(VersionPrefix)</AssemblyVersion>
+    <!-- 文件版本 -->
+    <FileVersion>$(VersionPrefix)</FileVersion>
+    <!-- 仓库类型, 默认: git -->
+    <RepositoryType>git</RepositoryType>
+    <!-- 仓库地址 -->
+    <RepositoryUrl>https://github.com/Sharemee/Sharemee.DevelopKit.git</RepositoryUrl>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -30,10 +38,13 @@
 
   <!-- Package Configuration -->
   <PropertyGroup>
-    <PackageReadmeFile Condition="Exists('README.md')">README.md</PackageReadmeFile>
-    <PackageLicenseFile Condition="Exists('LICENSE')">LICENSE</PackageLicenseFile>
+    <PackageId>$(AssemblyName)</PackageId>
+    <PackageTags>Sharemee,</PackageTags>
+    <PackAsTool>false</PackAsTool>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageOutputPath>$(RepositoryDirectory)build\$(ProjectFullName)</PackageOutputPath>
-    <RepositoryUrl>https://github.com/Sharemee/Sharemee.DevelopKit.git</RepositoryUrl>
+    <PackageProjectUrl>$(RepositoryUrl)</PackageProjectUrl>
   </PropertyGroup>
 
   <!-- Config README.md file source -->
@@ -68,6 +79,7 @@
   <Target Name="Test" Condition="$(Configuration)=='Debug'" BeforeTargets="Build">
     <WriteLinesToFile File="$(BuildDirectory)$(AssemblyName)\build.log" Lines="$([System.DateTime]::Now) [$(Configuration)] $(RepositoryUrl)" />
     <WriteLinesToFile File="$(BuildDirectory)$(AssemblyName)\build.log" Lines="$([System.DateTime]::Now) [$(Configuration)] $(RepositoryDirectory)" />
-    <WriteLinesToFile File="$(BuildDirectory)$(AssemblyName)\build.log" Lines="$([System.DateTime]::Now) [$(Configuration)] $(Exists('LICENSE'))" />
+    <WriteLinesToFile File="$(BuildDirectory)$(AssemblyName)\build.log" Lines="$([System.DateTime]::Now) [$(Configuration)] $(PackageTags)" />
+    <WriteLinesToFile Condition="Exists('LICENSE')" File="$(BuildDirectory)$(AssemblyName)\build.log" Lines="$([System.DateTime]::Now) [$(Configuration)] Exists LICENSE file." />
   </Target>
 </Project>
