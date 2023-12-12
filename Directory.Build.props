@@ -7,36 +7,24 @@
     <LangVersion>latest</LangVersion>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <!-- 程序集版本 -->
+
+    <ProjectName>$(Authors).$(MSBuildProjectName.Replace(" ", "_"))</ProjectName>
+    <AssemblyName>$(ProjectName)</AssemblyName>
+    <RootNamespace>$(ProjectName)</RootNamespace>
     <AssemblyVersion>$(VersionPrefix)</AssemblyVersion>
-    <!-- 文件版本 -->
     <FileVersion>$(VersionPrefix)</FileVersion>
-    <!-- 仓库类型, 默认: GIT -->
+
     <RepositoryType>GIT</RepositoryType>
-    <!-- 仓库地址 -->
     <RepositoryUrl>https://github.com/Sharemee/Sharemee.DevelopKit.git</RepositoryUrl>
-  </PropertyGroup>
-
-  <PropertyGroup>
-    <!-- 工程前缀名称 -->
-    <ProjectPrefix>$(Authors).</ProjectPrefix>
-    <!-- 工程名称 -->
-    <ProjectName>$(MSBuildProjectName.Replace(" ", "_"))</ProjectName>
-    <!-- 工程全称 -->
-    <ProjectFullName>$(ProjectPrefix)$(ProjectName)</ProjectFullName>
-  </PropertyGroup>
-
-  <PropertyGroup>
-    <AssemblyName>$(ProjectPrefix)$(ProjectName)</AssemblyName>
-    <RootNamespace>$(ProjectPrefix)$(ProjectName)</RootNamespace>
   </PropertyGroup>
 
   <!-- Custom Property -->
   <PropertyGroup>
     <RepositoryDirectory>$(MSBuildThisFileDirectory)</RepositoryDirectory>
     <BuildDirectory>$(RepositoryDirectory)build\</BuildDirectory>
-    <MsgLogFile>$(BuildDirectory)$(AssemblyName)\build.log</MsgLogFile>
+    <MsgLogFile>$(BuildDirectory)$(ProjectName)\build.log</MsgLogFile>
     <NowTime>$([System.DateTime]::Now)</NowTime>
+    <BeforeTargets>Pack</BeforeTargets>
   </PropertyGroup>
 
   <!-- Package Configuration -->
@@ -46,7 +34,7 @@
     <PackAsTool>false</PackAsTool>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <PackageOutputPath>$(RepositoryDirectory)build\$(ProjectFullName)</PackageOutputPath>
+    <PackageOutputPath>$(RepositoryDirectory)build\$(ProjectName)</PackageOutputPath>
     <PackageProjectUrl>$(RepositoryUrl)</PackageProjectUrl>
   </PropertyGroup>
 
@@ -79,19 +67,29 @@
   </Choose>
 
   <!-- Test property value -->
-  <Target Name="Test" AfterTargets="Build">
+  <Target Name="Test" BeforeTargets="$(BeforeTargets)">
+    <Message Importance="high" Text="AssemblyName: $(AssemblyName)" />
+    <Message Importance="high" Text="RootNamespace: $(RootNamespace)" />
     <WriteLinesToFile File="$(MsgLogFile)" Lines="--------------------------------------------------------------------------------" />
+    <WriteLinesToFile File="$(MsgLogFile)" Lines="$(NowTime) [$(Configuration)] BeforeTargets: $(BeforeTargets)" />
     <WriteLinesToFile File="$(MsgLogFile)" Lines="$(NowTime) [$(Configuration)] MsgLogFile: $(MsgLogFile)" />
+    <WriteLinesToFile File="$(MsgLogFile)" Lines="$(NowTime) [$(Configuration)] ProjectGuid: $(ProjectGuid)" />
+    <WriteLinesToFile File="$(MsgLogFile)" Lines="$(NowTime) [$(Configuration)] ProjectName: $(ProjectName)" />
+    <WriteLinesToFile File="$(MsgLogFile)" Lines="$(NowTime) [$(Configuration)] MSBuildProjectName: $(MSBuildProjectName)" />
+    <WriteLinesToFile File="$(MsgLogFile)" Lines="$(NowTime) [$(Configuration)] AssemblyName: $(AssemblyName)" />
+    <WriteLinesToFile File="$(MsgLogFile)" Lines="$(NowTime) [$(Configuration)] RootNamespace: $(RootNamespace)" />
     <WriteLinesToFile File="$(MsgLogFile)" Lines="$(NowTime) [$(Configuration)] RepositoryUrl: $(RepositoryUrl)" />
+    <WriteLinesToFile File="$(MsgLogFile)" Lines="$(NowTime) [$(Configuration)] PackageId: $(PackageId)" />
     <WriteLinesToFile File="$(MsgLogFile)" Lines="$(NowTime) [$(Configuration)] PackageTags: $(PackageTags)" />
     <WriteLinesToFile File="$(MsgLogFile)" Lines="$(NowTime) [$(Configuration)] Platform: $(Platform)" />
     <WriteLinesToFile File="$(MsgLogFile)" Lines="$(NowTime) [$(Configuration)] PlatformID: $(PlatformID)" />
     <WriteLinesToFile File="$(MsgLogFile)" Lines="$(NowTime) [$(Configuration)] PlatformName: $(PlatformName)" />
     <WriteLinesToFile File="$(MsgLogFile)" Lines="$(NowTime) [$(Configuration)] PlatformTarget: $(PlatformTarget)" />
-    <WriteLinesToFile File="$(MsgLogFile)" Lines="$(NowTime) [$(Configuration)] ProjectGuid: $(ProjectGuid)" />
     <WriteLinesToFile File="$(MsgLogFile)" Lines="$(NowTime) [$(Configuration)] Version: $(Version)" />
+    <WriteLinesToFile File="$(MsgLogFile)" Lines="$(NowTime) [$(Configuration)] VersionPrefix: $(VersionPrefix)" />
     <WriteLinesToFile File="$(MsgLogFile)" Lines="$(NowTime) [$(Configuration)] AssemblyVersion: $(AssemblyVersion)" />
     <WriteLinesToFile File="$(MsgLogFile)" Lines="$(NowTime) [$(Configuration)] FileVersion: $(FileVersion)" />
+    <WriteLinesToFile File="$(MsgLogFile)" Lines="$(NowTime) [$(Configuration)] Optimize: $(Optimize)" />
     <WriteLinesToFile Condition="Exists('LICENSE')" File="$(MsgLogFile)" Lines="$(NowTime) [$(Configuration)] Exists LICENSE file" />
   </Target>
 </Project>
