@@ -6,6 +6,9 @@
     <VersionPrefix>0.0.0.2</VersionPrefix>
     <VersionSuffix>alpha</VersionSuffix>
     <PackageTags>$(PackageTags)wpf</PackageTags>
+
+    <!-- 必须手动写死, 否则xaml中会出现找不到目标 -->
+    <AssemblyName>Sharemee.DevelopKit.Wpf</AssemblyName>
   </PropertyGroup>
 
 </Project>
