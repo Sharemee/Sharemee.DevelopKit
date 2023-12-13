@@ -46,7 +46,8 @@ internal class WebApiRequestConverter
         return methodType switch
         {
             MethodType.Post => HttpMethod.Post,
-            _ => HttpMethod.Get,
+            MethodType.Get => HttpMethod.Get,
+            _ => throw new Exception($"Unsupport type {methodType}"),
         };
     }
 }

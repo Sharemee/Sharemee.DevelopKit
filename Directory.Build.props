@@ -8,9 +8,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
 
-    <ProjectName>$(Authors).$(MSBuildProjectName.Replace(" ", "_"))</ProjectName>
-    <AssemblyName>$(ProjectName)</AssemblyName>
-    <RootNamespace>$(ProjectName)</RootNamespace>
+    <AssemblyName>$(Authors).$(MSBuildProjectName)</AssemblyName>
+    <RootNamespace>$(Authors).$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
     <AssemblyVersion>$(VersionPrefix)</AssemblyVersion>
     <FileVersion>$(VersionPrefix)</FileVersion>
 
@@ -22,7 +21,7 @@
   <PropertyGroup>
     <RepositoryDirectory>$(MSBuildThisFileDirectory)</RepositoryDirectory>
     <BuildDirectory>$(RepositoryDirectory)build\</BuildDirectory>
-    <MsgLogFile>$(BuildDirectory)$(ProjectName)\build.log</MsgLogFile>
+    <MsgLogFile>$(BuildDirectory)$(AssemblyName)\build.log</MsgLogFile>
     <NowTime>$([System.DateTime]::Now)</NowTime>
     <BeforeTargets>Pack</BeforeTargets>
   </PropertyGroup>
@@ -34,7 +33,7 @@
     <PackAsTool>false</PackAsTool>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <PackageOutputPath>$(RepositoryDirectory)build\$(ProjectName)</PackageOutputPath>
+    <PackageOutputPath>$(RepositoryDirectory)build\$(AssemblyName)</PackageOutputPath>
     <PackageProjectUrl>$(RepositoryUrl)</PackageProjectUrl>
   </PropertyGroup>
 

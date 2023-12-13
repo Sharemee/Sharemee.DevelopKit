@@ -312,7 +312,7 @@ public class CaptionBar : ContentControl
 
     static CaptionBar()
     {
-        DefaultStyleKeyProperty.OverrideMetadata(typeof(CaptionBar), new FrameworkPropertyMetadata(typeof(CaptionBar)));
+        //DefaultStyleKeyProperty.OverrideMetadata(typeof(CaptionBar), new FrameworkPropertyMetadata(typeof(CaptionBar)));
     }
 
     public override void OnApplyTemplate()

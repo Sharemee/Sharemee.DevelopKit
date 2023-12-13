@@ -3,11 +3,15 @@
   <PropertyGroup>
     <TargetFramework>net6.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
-    <VersionPrefix>0.0.0.2</VersionPrefix>
+    <VersionPrefix>0.0.0.3</VersionPrefix>
     <VersionSuffix>alpha</VersionSuffix>
     <PackageTags>$(PackageTags)wpf</PackageTags>
 
-    <!-- 必须手动写死, 否则xaml中会出现找不到目标 -->
+    <!--
+        必须手动写死, 否则xaml中 TargetType 会找不到目标
+        实际找得到, 可以F12定位到目标但无法编译
+        换成表达式就会报错
+    -->
     <AssemblyName>Sharemee.DevelopKit.Wpf</AssemblyName>
   </PropertyGroup>
 
