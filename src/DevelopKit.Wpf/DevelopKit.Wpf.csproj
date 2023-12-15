@@ -11,6 +11,7 @@
         必须手动写死, 否则xaml中 TargetType 会找不到目标
         实际找得到, 可以F12定位到目标但无法编译
         换成表达式就会报错
+        和我同样问题的一篇博客: https://blog.csdn.net/tang15767688112/article/details/134373740
     -->
     <AssemblyName>Sharemee.DevelopKit.Wpf</AssemblyName>
   </PropertyGroup>
