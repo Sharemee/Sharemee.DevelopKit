@@ -79,11 +79,13 @@
                         Background="Transparent"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}"
+                        UseLayoutRounding="True"
+                        SnapsToDevicePixels="True"
                         CornerRadius="{TemplateBinding CornerRadius}">
                         <StackPanel Background="Transparent">
                             <!--  标题栏区域  -->
                             <Grid
-                                Height="{TemplateBinding CaptionHeight}"
+                                Height="{TemplateBinding Height}"
                                 ctl:CaptionBar.IsCaptionBarContainer="True"
                                 Background="{TemplateBinding Background}">
                                 <Grid.ColumnDefinitions>
@@ -114,11 +116,11 @@
                                     </Image>
                                     <!--  应用程序标题  -->
                                     <TextBlock
+                                        Name="PART_TextBlock_Caption"
                                         Margin="10,0,10,0"
                                         VerticalAlignment="Center"
                                         FontSize="{TemplateBinding FontSize}"
-                                        Foreground="{TemplateBinding Foreground}"
-                                        Text="{TemplateBinding Caption}" />
+                                        Foreground="{TemplateBinding Foreground}"/>
                                 </StackPanel>
                                 <!--  控制按钮组  -->
                                 <StackPanel

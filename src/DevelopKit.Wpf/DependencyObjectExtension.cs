@@ -46,6 +46,6 @@ public static class DependencyObjectExtension
         return null;
     }
 
-    public static Window GetWindow(this DependencyObject dependencyObject) => Window.GetWindow(dependencyObject);
+    public static Window? GetWindow(this DependencyObject dependencyObject) => Window.GetWindow(dependencyObject);
 
 }

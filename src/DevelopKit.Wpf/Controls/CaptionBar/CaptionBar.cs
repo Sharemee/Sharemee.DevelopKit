@@ -22,49 +22,6 @@ namespace Sharemee.DevelopKit.Wpf.Controls;
 
 public class CaptionBar : ContentControl
 {
-    #region CaptionProperty
-
-    public string Caption
-    {
-        get => (string)GetValue(CaptionProperty);
-        set => SetValue(CaptionProperty, value);
-    }
-
-    public static readonly DependencyProperty CaptionProperty = DependencyProperty.Register(
-        nameof(Caption), typeof(string), typeof(CaptionBar), new PropertyMetadata(string.Empty, OnCaptionPropertyChanged));
-
-    private static void OnCaptionPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-    {
-        if (e.NewValue is string caption && !string.IsNullOrEmpty(caption))
-        {
-            Window? wnd = d.FindParent<Window>();
-            if (wnd is not null && wnd.Title != caption)
-            {
-                wnd.Title = caption;
-            }
-        }
-    }
-
-    #endregion
-
-    #region CaptionHeightProperty
-
-    public double CaptionHeight
-    {
-        get { return (double)GetValue(CaptionHeightProperty); }
-        set { SetValue(CaptionHeightProperty, value); }
-    }
-
-    public static readonly DependencyProperty CaptionHeightProperty =
-        DependencyProperty.Register("CaptionHeight", typeof(double), typeof(CaptionBar), new PropertyMetadata(double.NaN, OnCaptionHeightPropertyChanged));
-
-    private static void OnCaptionHeightPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-    {
-
-    }
-
-    #endregion
-
     #region IconSourceProperty
 
     public ImageSource IconSource
@@ -98,17 +55,14 @@ public class CaptionBar : ContentControl
     {
         if (e.NewValue is CornerRadius cr)
         {
-            Window? wnd = d.FindParent<Window>();
-            if (wnd is not null)
+            Window? window = d.GetWindow();
+            if (window != null)
             {
-                var winChrome = WindowChrome.GetWindowChrome(wnd);
+                var winChrome = WindowChrome.GetWindowChrome(window);
                 if (winChrome is null)
                 {
-                    winChrome = new WindowChrome()
-                    {
-                        CornerRadius = cr,
-                    };
-                    WindowChrome.SetWindowChrome(wnd, winChrome);
+                    winChrome = new WindowChrome() { CornerRadius = cr };
+                    WindowChrome.SetWindowChrome(window, winChrome);
                 }
                 else
                 {
@@ -129,15 +83,15 @@ public class CaptionBar : ContentControl
     }
 
     public static new readonly DependencyProperty HeightProperty =
-        DependencyProperty.Register("Height", typeof(double), typeof(CaptionBar), new PropertyMetadata(double.NaN, OnHeightPropertyChanged));
+        DependencyProperty.Register("Height", typeof(double), typeof(CaptionBar), new PropertyMetadata(32d));
 
-    private static void OnHeightPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-    {
-        if (d is CaptionBar captionBar && e.NewValue is double value && !double.IsNaN(value))
-        {
-            captionBar.CaptionHeight = value;
-        }
-    }
+    //private static void OnHeightPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    //{
+    //    if (d is CaptionBar captionBar && e.NewValue is double value && !double.IsNaN(value))
+    //    {
+    //        //captionBar.CaptionHeight = value;
+    //    }
+    //}
 
     #endregion
 
@@ -153,12 +107,7 @@ public class CaptionBar : ContentControl
     /// 覆盖默认背景颜色, 设置默认颜色为透明(如此标题栏则可拖动)
     /// </summary>
     public static new readonly DependencyProperty BackgroundProperty =
-        DependencyProperty.Register("Background", typeof(Brush), typeof(CaptionBar), new PropertyMetadata(new SolidColorBrush(Colors.Transparent), OnBackgroundPropertyChanged));
-
-    private static void OnBackgroundPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-    {
-
-    }
+        DependencyProperty.Register("Background", typeof(Brush), typeof(CaptionBar), new PropertyMetadata(new SolidColorBrush(Colors.Transparent)));
 
     #endregion
 
@@ -267,7 +216,7 @@ public class CaptionBar : ContentControl
 
     private static void OnMouseMove(object sender, MouseEventArgs e)
     {
-        Window window = (sender as DependencyObject)!.GetWindow();
+        Window window = (sender as DependencyObject)!.GetWindow()!;
         if (e.LeftButton == MouseButtonState.Pressed)
         {
             if (window.WindowState == WindowState.Maximized)
@@ -290,19 +239,21 @@ public class CaptionBar : ContentControl
     {
         if (sender is UIElement element)
         {
-            Window window = element.GetWindow();
-
-            if (e.ClickCount == 2)
+            Window? window = element.GetWindow();
+            if (window is not null)
             {
-                if (window.WindowState == WindowState.Normal)
+                if (e.ClickCount == 2)
                 {
-                    element.ReleaseMouseCapture();
-                    window.WindowState = WindowState.Maximized;
-                }
-                else if (window.WindowState == WindowState.Maximized)
-                {
-                    element.ReleaseMouseCapture();
-                    window.WindowState = WindowState.Normal;
+                    if (window.WindowState == WindowState.Normal)
+                    {
+                        element.ReleaseMouseCapture();
+                        window.WindowState = WindowState.Maximized;
+                    }
+                    else if (window.WindowState == WindowState.Maximized)
+                    {
+                        element.ReleaseMouseCapture();
+                        window.WindowState = WindowState.Normal;
+                    }
                 }
             }
         }
@@ -310,16 +261,11 @@ public class CaptionBar : ContentControl
 
     #endregion
 
-    static CaptionBar()
-    {
-        //DefaultStyleKeyProperty.OverrideMetadata(typeof(CaptionBar), new FrameworkPropertyMetadata(typeof(CaptionBar)));
-    }
-
     public override void OnApplyTemplate()
     {
         base.OnApplyTemplate();
 
-        Window? window = this.FindParent<Window>();
+        Window? window = this.GetWindow();
         if (window is not null)
         {
             WindowChrome? winChrome = WindowChrome.GetWindowChrome(window);
@@ -344,6 +290,17 @@ public class CaptionBar : ContentControl
                 winChrome.NonClientFrameEdges = NonClientFrameEdges.None;
                 winChrome.ResizeBorderThickness = new Thickness(4);
                 winChrome.UseAeroCaptionButtons = false;
+            }
+
+            // 设置标题绑定窗口
+            if (GetTemplateChild("PART_TextBlock_Caption") is TextBlock caption)
+            {
+                Binding captionBinding = new("Title")
+                {
+                    Source = window,
+                    Mode = BindingMode.TwoWay,
+                };
+                caption.SetBinding(TextBlock.TextProperty, captionBinding);
             }
         }
     }
