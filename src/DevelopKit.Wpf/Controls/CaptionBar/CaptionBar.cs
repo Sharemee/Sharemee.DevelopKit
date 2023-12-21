@@ -139,7 +139,7 @@ public class CaptionBar : ContentControl
     private static void ControlButtonClick(object sender, RoutedEventArgs e)
     {
         DependencyObject button = (DependencyObject)sender;
-        Window window = button.GetWindow();
+        Window? window = button.GetWindow();
         WindowState? state = GetActionState(button);
         if (window is not null && state.HasValue)
         {

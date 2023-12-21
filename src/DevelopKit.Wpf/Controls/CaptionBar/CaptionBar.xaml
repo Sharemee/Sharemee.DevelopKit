@@ -3,8 +3,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:ctl="clr-namespace:Sharemee.DevelopKit.Wpf.Controls">
 
-    <!--  SystemButtonStyle  -->
-    <Style x:Key="SystemButtonStyle" TargetType="{x:Type Button}">
+    <!--  CaptionBarButtonStyle  -->
+    <Style x:Key="CaptionBarButtonStyle" TargetType="{x:Type Button}">
         <Setter Property="Width" Value="46" />
         <!--<Setter Property="Height" Value="30" />-->
         <Setter Property="Background" Value="Transparent" />
@@ -34,40 +34,16 @@
         </Style.Triggers>
     </Style>
 
-    <!--  SystemButtonPathStyle  -->
-    <Style x:Key="SystemButtonPathStyle" TargetType="{x:Type Path}">
-        <Setter Property="Width" Value="12" />
-        <Setter Property="Height" Value="12" />
-        <Setter Property="Stretch" Value="UniformToFill" />
-        <Setter Property="Fill" Value="{Binding RelativeSource={RelativeSource AncestorType=Button, AncestorLevel=1}, Path=Foreground}" />
-    </Style>
-
-    <!--  CloseButtonStyle BaseOn SystemButtonStyle  -->
+    <!--  CloseButtonStyle BaseOn CaptionBarButtonStyle  -->
     <Style
         x:Key="CloseButtonStyle"
-        BasedOn="{StaticResource SystemButtonStyle}"
+        BasedOn="{StaticResource CaptionBarButtonStyle}"
         TargetType="{x:Type Button}">
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter Property="Background" Value="Red" />
                 <Setter Property="Foreground" Value="White" />
             </Trigger>
-        </Style.Triggers>
-    </Style>
-
-    <!--  ResizeButtonPathStyle  -->
-    <Style
-        x:Key="ResizeButtonPathStyle"
-        BasedOn="{StaticResource SystemButtonPathStyle}"
-        TargetType="{x:Type Path}">
-        <!--  切换按钮显示的图标  -->
-        <Style.Triggers>
-            <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=WindowState}" Value="Normal">
-                <Setter Property="Data" Value="{DynamicResource Maximize}" />
-            </DataTrigger>
-            <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=WindowState}" Value="Maximized">
-                <Setter Property="Data" Value="{DynamicResource Restore}" />
-            </DataTrigger>
         </Style.Triggers>
     </Style>
 
@@ -79,9 +55,9 @@
                         Background="Transparent"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}"
-                        UseLayoutRounding="True"
+                        CornerRadius="{TemplateBinding CornerRadius}"
                         SnapsToDevicePixels="True"
-                        CornerRadius="{TemplateBinding CornerRadius}">
+                        UseLayoutRounding="True">
                         <StackPanel Background="Transparent">
                             <!--  标题栏区域  -->
                             <Grid
@@ -101,7 +77,7 @@
                                     <Image
                                         Width="22"
                                         Height="22"
-                                        Margin="10,0,0,0"
+                                        Margin="8,0,0,0"
                                         Source="{TemplateBinding IconSource}">
                                         <Image.Style>
                                             <Style TargetType="{x:Type Image}">
@@ -120,7 +96,7 @@
                                         Margin="10,0,10,0"
                                         VerticalAlignment="Center"
                                         FontSize="{TemplateBinding FontSize}"
-                                        Foreground="{TemplateBinding Foreground}"/>
+                                        Foreground="{TemplateBinding Foreground}" />
                                 </StackPanel>
                                 <!--  控制按钮组  -->
                                 <StackPanel
@@ -129,8 +105,7 @@
                                     KeyboardNavigation.TabNavigation="None"
                                     Orientation="Horizontal">
                                     <StackPanel.Resources>
-                                        <Style BasedOn="{StaticResource SystemButtonPathStyle}" TargetType="{x:Type Path}" />
-                                        <Style BasedOn="{StaticResource SystemButtonStyle}" TargetType="{x:Type Button}" />
+                                        <Style BasedOn="{StaticResource CaptionBarButtonStyle}" TargetType="{x:Type Button}" />
                                     </StackPanel.Resources>
                                     <!--  最小化按钮  -->
                                     <Button
@@ -170,9 +145,9 @@
                             <Setter Property="Margin" Value="0" />
                             <Setter TargetName="RestoreButton" Property="Visibility" Value="Collapsed" />
                         </DataTrigger>
-                        <!--<DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=WindowState, NotifyOnSourceUpdated=True}" Value="Minimized">
-                        <Setter TargetName="MinimizedButton" Property="Visibility" Value="Collapsed"/>
-                    </DataTrigger>-->
+                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=WindowState, NotifyOnSourceUpdated=True}" Value="Minimized">
+                            <Setter TargetName="MinimizedButton" Property="Visibility" Value="Collapsed" />
+                        </DataTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
