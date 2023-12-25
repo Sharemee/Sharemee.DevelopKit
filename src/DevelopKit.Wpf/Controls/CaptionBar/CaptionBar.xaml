@@ -47,7 +47,9 @@
         </Style.Triggers>
     </Style>
 
+    <!--  CaptionBarStyle  -->
     <Style x:Key="CaptionBarStyle" TargetType="{x:Type ctl:CaptionBar}">
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ctl:CaptionBar}">
@@ -121,7 +123,8 @@
                                     <Button
                                         x:Name="RestoreButton"
                                         ctl:CaptionBar.ActionState="Normal"
-                                        Content="&#xE923;" />
+                                        Content="&#xE923;"
+                                        Visibility="Collapsed" />
                                     <!--  关闭按钮  -->
                                     <Button
                                         x:Name="CloseButton"
@@ -135,17 +138,19 @@
                         </StackPanel>
                     </Border>
                     <ControlTemplate.Triggers>
-                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=WindowState, NotifyOnSourceUpdated=True}" Value="Maximized">
+                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=WindowState, NotifyOnSourceUpdated=True}" Value="{x:Static WindowState.Maximized}">
                             <!--  When WindowState = Maximized, Margin = 7  -->
                             <Setter Property="Margin" Value="7" />
                             <Setter TargetName="MaximizedButton" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="RestoreButton" Property="Visibility" Value="Visible" />
                         </DataTrigger>
-                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=WindowState, NotifyOnSourceUpdated=True}" Value="Normal">
+                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=WindowState, NotifyOnSourceUpdated=True}" Value="{x:Static WindowState.Normal}">
                             <!--  When WindowState = Normal, Margin = 0  -->
                             <Setter Property="Margin" Value="0" />
+                            <Setter TargetName="MaximizedButton" Property="Visibility" Value="Visible" />
                             <Setter TargetName="RestoreButton" Property="Visibility" Value="Collapsed" />
                         </DataTrigger>
-                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=WindowState, NotifyOnSourceUpdated=True}" Value="Minimized">
+                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=WindowState, NotifyOnSourceUpdated=True}" Value="{x:Static WindowState.Minimized}">
                             <Setter TargetName="MinimizedButton" Property="Visibility" Value="Collapsed" />
                         </DataTrigger>
                     </ControlTemplate.Triggers>
